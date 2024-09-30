@@ -83,6 +83,22 @@ export default function Ajustes({ userId }) { // Recebe o ID do usuário como pr
     }));
   };
 
+
+  const mudarCorBotao = () => {
+    // Seleciona o botão pelo ID e altera a cor diretamente
+    const botao = document.getElementById('btn-salvar');
+    const bio = document.getElementById ('bio');
+    const email = document.getElementById ('email');
+    const nome = document.getElementById ('nome');
+    const profissao = document.getElementById ('profissao');
+    bio.disabled = true;
+    email.disabled = true;
+    nome.disabled = true;
+    profissao.disabled = true;
+    botao.disabled = true;
+    botao.style.backgroundColor = 'gray'; // Altera a cor para cinza
+  };
+
   // Efeito para buscar os dados do usuário ao montar o componente
   useEffect(() => {
     const fetchData = async () => {
@@ -122,6 +138,8 @@ export default function Ajustes({ userId }) { // Recebe o ID do usuário como pr
 
 
 
+
+
     fetchData();
   }, [userId]);
 
@@ -132,7 +150,7 @@ export default function Ajustes({ userId }) { // Recebe o ID do usuário como pr
         <LoaderAjustes/>):
         (
           <>
-            <button type='button' id="btn-salvar" className='btn-salvar' onClick={handleSave}>Salvar</button>
+            <button type='button' id="btn-salvar" className='btn-salvar' onClick={() => {handleSave(); mudarCorBotao();}}>Salvar</button>
             <div className="user-info">
               <div className='image'>
                 <img id='profile' src={`http://localhost:3000/users/${userData.idUserImage}/image`} alt="Profile Photo" />

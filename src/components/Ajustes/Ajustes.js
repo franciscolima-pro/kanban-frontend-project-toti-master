@@ -1,4 +1,4 @@
-function habilitarInput(inputId) {
+function habilitarEntrada(inputId) {
     const inputElement = document.getElementById(inputId);
     const saveButton = document.getElementById('btn-salvar');
 
@@ -9,4 +9,5 @@ function habilitarInput(inputId) {
     }
   };
 
-  export default habilitarInput;
+
+  export default habilitarEntrada;
