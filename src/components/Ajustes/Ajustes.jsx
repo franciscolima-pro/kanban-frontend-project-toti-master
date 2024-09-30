@@ -10,6 +10,8 @@ const formatarData = (dataISO) => {
 };
 
 export default function Ajustes({ userId }) { // Recebe o ID do usuário como prop
+  const [mensagemSucesso, setMensagemSucesso] = useState('');
+  const [showMensagem, setShowMensagem] = useState(false);
   
   // Estado para armazenar os dados do usuário
   const [userData, setUserData] = useState({
@@ -56,15 +58,22 @@ export default function Ajustes({ userId }) { // Recebe o ID do usuário como pr
         description: userData.bio,
         roleId: userData.rol
       });
+      setMensagemSucesso('Dados salvos com sucesso!');
+      setShowMensagem(true);
       console.log('Dados atualizados com sucesso:', response.data);
-      setIsDataChanged(false); // Desabilita o botão "Salvar" após salvar
+      setTimeout(() => {
+        setShowMensagem(false); // Oculta a mensagem
+        setMensagemSucesso(''); // Limpa o texto da mensagem
+      }, 3000);
     } catch (error) {
       console.error('Erro ao salvar os dados:', error);
+      setMensagemSucesso('Erro ao salvar os dados. Tente novamente.');
     }
   };
 
   // Estado para o controle do loading
-  const [loading, setLoading] = useState(true);  
+  const [loading, setLoading] = useState(true); 
+  
 
   // Simulando um efeito de carregamento
   useEffect(() => {
@@ -82,7 +91,7 @@ export default function Ajustes({ userId }) { // Recebe o ID do usuário como pr
       [id]: value
     }));
   };
-
+  
 
   const mudarCorBotao = () => {
     // Seleciona o botão pelo ID e altera a cor diretamente
@@ -96,7 +105,7 @@ export default function Ajustes({ userId }) { // Recebe o ID do usuário como pr
     nome.disabled = true;
     profissao.disabled = true;
     botao.disabled = true;
-    botao.style.backgroundColor = 'gray'; // Altera a cor para cinza
+    botao.style.backgroundColor = 'gray'; 
   };
 
   // Efeito para buscar os dados do usuário ao montar o componente
@@ -151,6 +160,9 @@ export default function Ajustes({ userId }) { // Recebe o ID do usuário como pr
         (
           <>
             <button type='button' id="btn-salvar" className='btn-salvar' onClick={() => {handleSave(); mudarCorBotao();}}>Salvar</button>
+            {mensagemSucesso && (
+              <p className="mensagem-sucesso">{mensagemSucesso}</p>
+            )}
             <div className="user-info">
               <div className='image'>
                 <img id='profile' src={`http://localhost:3000/users/${userData.idUserImage}/image`} alt="Profile Photo" />

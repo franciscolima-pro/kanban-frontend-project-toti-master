@@ -133,3 +133,21 @@ footer .creation-date {
 .rol{
   display: none;
 }
+
+.ajustes-container {
+  position: relative; /* Para permitir o posicionamento absoluto */
+}
+
+.mensagem-sucesso {
+  position: absolute; /* Para não afetar o layout dos outros elementos */
+  right: 0.8em; /* Ajuste conforme necessário */
+  bottom: 0.8em; /* Ajuste conforme necessário */
+  background-color: #d4edda; /* Verde claro */
+  color: #155724; /* Texto verde escuro */
+  padding: 10px 20px; /* Espaçamento interno */
+  border: 1px solid #c3e6cb; /* Borda verde */
+  border-radius: 5px; /* Cantos arredondados */
+  font-size: 1rem; /* Tamanho da fonte */
+  z-index: 1000; /* Para garantir que fique acima de outros elementos */
+  transition: opacity 0.5s; /* Efeito de transição suave */
+}
