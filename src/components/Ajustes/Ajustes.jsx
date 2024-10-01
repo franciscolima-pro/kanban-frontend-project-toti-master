@@ -23,53 +23,53 @@ export default function Ajustes({ userId }) { // Recebe o ID do usuário como pr
     rol: ''
   });
 
+  const [imageFile, setImageFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState(`http://localhost:3000/users/2/image`); // URL inicial da imagem
+
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     
     if (file) {
-      const formData = new FormData();
-      formData.append('image', file);
-  
-      // Faça a requisição para o backend para salvar a nova imagem
-      axios.post(`http://localhost:3000/users/${userData.idUserImage}/upload`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      })
-      .then(response => {
-        // Atualize o src da imagem com a nova URL recebida
-        const newImageUrl = `http://localhost:3000/users/${userData.idUserImage}/image`;
-        document.getElementById('profile').src = newImageUrl;
-      })
-      .catch(error => {
-        console.error('Erro ao fazer upload da imagem:', error);
-      });
+      setImageFile(file); // Atualiza o estado da imagem
+      const previewUrl = URL.createObjectURL(file); // Cria URL para visualização
+      setImagePreview(previewUrl); // Atualiza a visualização da imagem
     }
   };
 
   const handleSave = async () => {
     try {
-      // Enviar os dados modificados para o backend
-      const response = await axios.put(`http://localhost:3000/users/2`, {
-        user_photo: userData.idUserImage,
-        name: userData.nome,
-        email: userData.email,
-        jobTitle: userData.profissao,
-        description: userData.bio,
-        roleId: userData.rol
-      });
-      setMensagemSucesso('Dados salvos com sucesso!');
-      setShowMensagem(true);
-      console.log('Dados atualizados com sucesso:', response.data);
-      setTimeout(() => {
-        setShowMensagem(false); // Oculta a mensagem
-        setMensagemSucesso(''); // Limpa o texto da mensagem
-      }, 3000);
+        const formData = new FormData();
+
+        formData.append('description', userData.bio);
+        formData.append('name', userData.nome);
+        formData.append('email', userData.email);
+        formData.append('jobTitle', userData.profissao);
+        formData.append('roleId', userData.rol);
+
+        if (imageFile) {
+            formData.append('user_photo', imageFile); // Certifique-se de que 'user_photo' está correto
+        }
+
+        console.log('Dados enviados:', Object.fromEntries(formData));
+
+        const response = await axios.put(`http://localhost:3000/users/2`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        });
+
+        setMensagemSucesso('Dados salvos com sucesso!');
+        setShowMensagem(true);
+
+        setTimeout(() => {
+            setShowMensagem(false);
+            setMensagemSucesso('');
+        }, 3000);
     } catch (error) {
-      console.error('Erro ao salvar os dados:', error);
-      setMensagemSucesso('Erro ao salvar os dados. Tente novamente.');
+        console.error('Erro ao salvar os dados:', error.response ? error.response.data : error.message);
+        setMensagemSucesso('Erro ao salvar os dados. Tente novamente.');
     }
-  };
+};
 
   // Estado para o controle do loading
   const [loading, setLoading] = useState(true); 
@@ -177,7 +177,7 @@ export default function Ajustes({ userId }) { // Recebe o ID do usuário como pr
                   type="file" 
                   id="profile-image-input" 
                   accept="image/*" 
-                  style={{ display: 'none' }}  // Escondido
+                  style={{ display: '' }}  // Escondido
                   onChange={handleImageChange}  // Atualiza a imagem quando o arquivo é selecionado
                 />
               </div>

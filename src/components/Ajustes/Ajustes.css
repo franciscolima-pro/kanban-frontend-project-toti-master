@@ -120,6 +120,91 @@ footer .creation-date {
   border: none;
 }
 
+.categoria {
+  border-radius: 3rem;
+  padding: 4px 7px 4px 7px;
+}
+.categoria-design {
+  background-color: rgb(51, 88, 156);
+  color: white;
+}
+
+.categoria-desenvolvimento {
+  background-color: rgb(136, 135, 141);
+  color: white;
+}
+
+.categoria-marketing {
+  background-color: rgb(185, 124, 241);
+  color: white;
+}
+.categoria-infraestrutura {
+  background-color: rgb(219, 153, 66);
+  color: white;
+}
+
+.prioridade{
+  border-radius: 3rem;
+  padding: 4px 7px 4px 7px;
+}
+
+.prioridade-low{
+  color: white;
+  background-color: #abed3a;
+}
+.prioridade-medium{
+  color: white;
+  background-color: #ed7c3a;
+}
+.prioridade-high{
+  color: white;
+  background-color: #ed3a51;
+}
+.relatorios-conteudo{
+  overflow-x: auto;
+  scroll-behavior: smooth; 
+  height: calc(100vh - 8.5rem);
+}
+
+.relatorio-usuario{
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  background-color: #e5d8fb;
+  border: 1px solid #cbb0f8;
+  border-radius: 3rem;
+  padding: 0px 0px 0px 5px;
+  .user-photo {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+  }
+}
+
+.relatorio-due-date{
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  background-color: #e5d8fb;
+  border: 1px solid #cbb0f8;
+  border-radius: 3rem;
+  padding: 0px 5px 0px 5px;
+  svg{
+    width: 1.5rem;
+  }
+}
+.container-categoria-e-prioridade{
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.3rem;
+}
+.container-due_date-usuario{
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.3rem;
+  margin: 0.6rem 0rem 0.6rem 0rem;
+}
+
 /* Estilo responsivo para telas menores */
 @media (max-width: 768px) {
   footer {
